@@ -42,6 +42,13 @@ class Register extends Component {
     }
 
     render() {
+        const { isDarkMode } = this.props;
+        let isTextColor = '';
+        if (isDarkMode === 'darkMode') {
+            isTextColor = 'hover-bg-black-70 hover-dark-green'
+        } else {
+            isTextColor = 'hover-bg-blue hover-white';
+        }
         return (
             <article className="br3 ba shadow-5 b--black-10 mv4 w-100 w-50-m w-25-l mw6 center">
                 <main className="pa4 black-80">
@@ -50,19 +57,19 @@ class Register extends Component {
                             <legend className="f1 fw6 ph0 mh0">Register</legend>
                             <div className="mt3">
                                 <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
-                                <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="name"  id="name" 
+                                <input className={`pa2 input-reset ba bg-transparent ${isTextColor} w-100`} type="text" name="name"  id="name" 
                                 onChange={this.onNameChange}
                                 />
                             </div>
                             <div className="mt3">
                                 <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                                <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address"id="email-address"
+                                <input className={`pa2 input-reset ba bg-transparent ${isTextColor} w-100`} type="email" name="email-address"id="email-address"
                                 onChange={this.onEmailChange}
                                 />
                             </div>
                             <div className="mv3">
                                 <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                                <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password" 
+                                <input className={`pa2 input-reset ba bg-transparent ${isTextColor} w-100`} type="password" name="password"  id="password" 
                                 onChange={this.onPasswordChange}
                                 />
                             </div>

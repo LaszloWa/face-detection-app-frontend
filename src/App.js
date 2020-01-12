@@ -39,7 +39,9 @@ const particlesOptions = {
 class App extends Component {
   constructor() {
     super();
-    this.state = initialState;
+    this.state = {
+      initialState, 
+      isDarkMode: 'lightMode'};
   }
 
   loadUser = (data) => {
@@ -70,7 +72,7 @@ class App extends Component {
   }
 
   onInputChange = (event) => {
-  this.setState({input: event.target.value});
+    this.setState({input: event.target.value});
   }
 
   onPictureSubmit = () => {
@@ -94,10 +96,11 @@ class App extends Component {
           })
           .then(response => response.json())
           .then(count => {
-            this.setState(Object.assign(this.state.user, {
+              this.setState(Object.assign(this.state.user, {
               entries: count
-            }))
-          })
+              })) 
+            }
+          )
           .catch(err => console.log('Something went wrong.'))
         }
         this.displayFaceBox(this.calculateFaceLocation(response))
@@ -114,17 +117,25 @@ class App extends Component {
     this.setState({route: route});
   }
 
+  onToggleDarkMode = () => {
+    if (this.state.isDarkMode === 'lightMode') {
+      this.setState({isDarkMode: 'darkMode'});
+    } else {
+      this.setState({isDarkMode: 'lightMode'});
+    }
+  }
+
   render() {
-    const { isSignedIn, imageUrl, route, box } = this.state;
+    const { isSignedIn, imageUrl, route, box, isDarkMode } = this.state;
     return (
       <div className="App">
-        <Particles className='particles'
+        <Particles className={`particles ${this.state.isDarkMode}`}
           params={particlesOptions}
         />
-        <Navigation onRouteChange={this.onRouteChange} isSignedIn={isSignedIn} />
+        <Navigation onRouteChange={this.onRouteChange} isSignedIn={isSignedIn} onToggleDarkMode={this.onToggleDarkMode} isDarkMode={isDarkMode} />
         { route === 'home' 
         ? <div>
-            <Logo />
+            <Logo isDarkMode={isDarkMode} />
             <Rank 
             name={this.state.user.name} 
             entries={this.state.user.entries}
@@ -134,8 +145,10 @@ class App extends Component {
           </div>
         : ( this.state.route === 'signIn'
           ? <SignIn onRouteChange={this.onRouteChange}
+          isDarkMode={isDarkMode}
           loadUser={this.loadUser} />
-          : <Register onRouteChange={this.onRouteChange} 
+          : <Register onRouteChange={this.onRouteChange}
+          isDarkMode={isDarkMode} 
           loadUser={this.loadUser} />
           )
         }

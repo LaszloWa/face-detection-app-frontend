@@ -8,6 +8,7 @@ import Rank from './components/Rank/Rank';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
+import Profile from './components/Profile/Profile';
 
 const initialState = {
   input: '',
@@ -113,6 +114,8 @@ class App extends Component {
       this.setState(initialState);
     } else if (route === 'home') {
       this.setState({isSignedIn: true});
+    } else if (route === 'profile') {
+      this.setState({isSignedIn: true});
     }
     this.setState({route: route});
   }
@@ -126,36 +129,42 @@ class App extends Component {
   }
 
   render() {
-    const { isSignedIn, imageUrl, route, box, isDarkMode } = this.state;
+    const { isSignedIn, imageUrl, route, box, isDarkMode} = this.state;
+    console.log(this.state.user);
     return (
       <div className="App">
         <Particles className={`particles ${this.state.isDarkMode}`}
           params={particlesOptions}
         />
-        <Navigation onRouteChange={this.onRouteChange} isSignedIn={isSignedIn} onToggleDarkMode={this.onToggleDarkMode} isDarkMode={isDarkMode} />
+        <Navigation onRouteChange={this.onRouteChange} isSignedIn={isSignedIn} onToggleDarkMode={this.onToggleDarkMode} isDarkMode={isDarkMode} route={route} />
         { route === 'home' 
         ? <div>
             <Logo isDarkMode={isDarkMode} />
             <Rank 
             name={this.state.user.name} 
             entries={this.state.user.entries}
+            isDarkMode={isDarkMode}
             />
-            <ImageLinkForm onInputChange={this.onInputChange} onPictureSubmit={this.onPictureSubmit}/>
+            <ImageLinkForm onInputChange={this.onInputChange} onPictureSubmit={this.onPictureSubmit} isDarkMode={isDarkMode} />
             <FaceRecognition imageUrl={imageUrl} box={box} />
           </div>
-        : ( this.state.route === 'signIn'
+        : ( this.state.route === 'profile' 
+          ? <Profile 
+          isDarkMode={isDarkMode}
+          user={this.state.user}
+          onRouteChange={this.onRouteChange} />
+          : ( this.state.route === 'signIn'
           ? <SignIn onRouteChange={this.onRouteChange}
           isDarkMode={isDarkMode}
           loadUser={this.loadUser} />
           : <Register onRouteChange={this.onRouteChange}
           isDarkMode={isDarkMode} 
           loadUser={this.loadUser} />
-          )
+          ))
         }
       </div>
     );
   }
-  
 }
 
 export default App;

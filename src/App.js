@@ -13,7 +13,12 @@ import Profile from './components/Profile/Profile';
 const initialState = {
   input: '',
   imageUrl: '',
-  box: {},
+  box: {
+    topRow: '', 
+    leftCol: '', 
+    bottomRow: '', 
+    rightCol: ''
+  },
   route: 'signIn',
   isSignedIn: false,
   user: {
@@ -42,7 +47,9 @@ class App extends Component {
     super();
     this.state = {
       initialState, 
-      isDarkMode: 'lightMode'};
+      isDarkMode: 'lightMode',
+      box: ''
+    }
   }
 
   loadUser = (data) => {
@@ -129,11 +136,11 @@ class App extends Component {
   }
 
   render() {
-    const { isSignedIn, imageUrl, route, box, isDarkMode} = this.state;
-    console.log(this.state.user);
+    const { isSignedIn, imageUrl, route, box, isDarkMode, user } = this.state;
+    console.log(this.state);
     return (
       <div className="App">
-        <Particles className={`particles ${this.state.isDarkMode}`}
+        <Particles className={`particles ${isDarkMode}`}
           params={particlesOptions}
         />
         <Navigation onRouteChange={this.onRouteChange} isSignedIn={isSignedIn} onToggleDarkMode={this.onToggleDarkMode} isDarkMode={isDarkMode} route={route} />
@@ -141,19 +148,19 @@ class App extends Component {
         ? <div>
             <Logo isDarkMode={isDarkMode} />
             <Rank 
-            name={this.state.user.name} 
-            entries={this.state.user.entries}
+            name={user.name} 
+            entries={user.entries}
             isDarkMode={isDarkMode}
             />
             <ImageLinkForm onInputChange={this.onInputChange} onPictureSubmit={this.onPictureSubmit} isDarkMode={isDarkMode} />
             <FaceRecognition imageUrl={imageUrl} box={box} />
           </div>
-        : ( this.state.route === 'profile' 
+        : ( route === 'profile' 
           ? <Profile 
           isDarkMode={isDarkMode}
-          user={this.state.user}
+          user={user}
           onRouteChange={this.onRouteChange} />
-          : ( this.state.route === 'signIn'
+          : ( route === 'signIn'
           ? <SignIn onRouteChange={this.onRouteChange}
           isDarkMode={isDarkMode}
           loadUser={this.loadUser} />

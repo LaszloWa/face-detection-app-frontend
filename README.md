@@ -9,4 +9,5 @@ After completing the app by following the course, I implemented the following fe
 - Profile page (included adding new route on backend)
 - Profile delete option (included adding new route on backend)
 - Dark mode/ Light mode
+- Banner informing the user what data was stored, why it is being stored and how they can delete it.
 - Styling

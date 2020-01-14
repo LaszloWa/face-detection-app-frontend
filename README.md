@@ -6,7 +6,7 @@ The app allows a user to enter an image-url and faces in the image will then be 
 The basic app was built by coding along with the course.
 
 After completing the app by following the course, I implemented the following features myself:
-- Profile page
-- Profile delete option
+- Profile page (included adding new route on backend)
+- Profile delete option (included adding new route on backend)
 - Dark mode/ Light mode
 - Styling

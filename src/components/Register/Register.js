@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CookieConsent from "react-cookie-consent";
 
 class Register extends Component {
     constructor(props) {
@@ -81,6 +82,9 @@ class Register extends Component {
                         </div>
                     </div>
                 </main>
+                <CookieConsent>
+                    Your email is stored solely for the purpose of tracking # of entries made, and can be deleted under 'Profile' at any time. The address is not verified, so feel free to use a made up one if you prefer :)
+                </CookieConsent>
             </article>
         )
     }

@@ -9,10 +9,10 @@ const Rank = ({name, entries, isDarkMode}) => {
         }
     return (
         <div>
-            <div className={`${isTextColor} f3`}>
+            <div className={`${isTextColor} f3 w-70 center`}>
                 {`${name}, your current entry count is...`}
             </div>
-            <div className={`${isTextColor} f1`}>
+            <div className={`${isTextColor} f1 w-70 center`}>
                 {entries}
             </div>
         </div>

@@ -137,7 +137,6 @@ class App extends Component {
 
   render() {
     const { isSignedIn, imageUrl, route, box, isDarkMode, user } = this.state;
-    console.log(this.state);
     return (
       <div className="App">
         <Particles className={`particles ${isDarkMode}`}
